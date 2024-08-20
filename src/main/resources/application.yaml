@@ -6,7 +6,7 @@ spring:
   application:
     name: person-service
   r2dbc:
-    url: r2dbc:postgres://localhost:5432/postgres
+    url: r2dbc:postgres://localhost:5432/postgres?schema=person
     #    ${SPRING_R2DBC_URL} = r2dbc:pool:postgres://localhost:5432/paymentprovider
     username: postgres
     password: postgres
@@ -16,5 +16,6 @@ spring:
       validation-query: SELECT 1
   flyway:
     #    url: ${SPRING_FLYWAY_URL}
-    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres
+    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres&currentSchema=person
     locations: classpath:db/migration
+    baseline-on-migrate: true

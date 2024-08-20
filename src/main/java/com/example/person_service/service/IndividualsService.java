@@ -51,13 +51,12 @@ public class IndividualsService {
         // получить индивидуала по айдишнику
         // сравнить текущую дто и новую
         // измененные поля пишу сюда в историю
-
-
         // использовать JsonNode!
 
-        return repository.findById(individualDto.getUserId())
+        return repository.findByUserId(individualDto.getUserId())
                 .flatMap(individualFromRepo -> {
                     Individual newIndividual = mapper.map(individualDto);
+                    newIndividual.setId(individualFromRepo.getId());
                     return repository.save(newIndividual)
                             .flatMap(savedIndividual -> {
                                 // Сравниваем через Джаверс
