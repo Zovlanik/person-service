@@ -20,4 +20,18 @@ public class CountryService {
         return repository.save(mapper.map(countryDto));
     }
 
+    public Mono<Country> getCountry(Integer id){
+        return repository.findById(id);
+    }
+
+    public Mono<Country> updateCountry(CountryDto countryDto){ // todo: правильно ли в DTO добавлять айдишник, чтобы иметь возможность в будущем поиска по айдишнику?
+        return repository.findByName(countryDto.getName())
+                .flatMap(country -> {
+                    Country newCountry = mapper.map(countryDto);
+                    newCountry.setId(country.getId());
+                    return repository.save(newCountry);
+                });
+    }
+
+
 }

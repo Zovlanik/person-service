@@ -6,6 +6,7 @@ import com.example.person_service.entity.Country;
 import com.example.person_service.service.CountryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
@@ -17,8 +18,18 @@ public class CountryController {
 
     private final CountryService countryService;
 
-    @PostMapping("")
-    public Mono<Country> createCountry (CountryDto countryDto){
+    @PostMapping("/create")
+    public Mono<Country> createCountry(@RequestBody CountryDto countryDto) {
         return countryService.createCountry(countryDto);
+    }
+
+    @PostMapping("/get")
+    public Mono<Country> getCountry(@RequestBody Integer id) {
+        return countryService.getCountry(id);
+    }
+
+    @PostMapping("/update")
+    public Mono<Country> updateCountry(@RequestBody CountryDto countryDto) {
+        return countryService.updateCountry(countryDto);
     }
 }
