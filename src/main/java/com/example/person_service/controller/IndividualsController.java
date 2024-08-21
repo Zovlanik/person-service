@@ -36,4 +36,10 @@ public class IndividualsController {
         return individualsService.findById(id);
     }
 
+
+    @PostMapping("/deleteById")
+    public Mono<Individual> deleteIndividualById (@RequestBody UUID id){
+        return individualsService.deleteById(id);
+    }
+
 }

@@ -82,7 +82,14 @@ public class IndividualsService {
     }
 
     public Mono<Individual> findById(UUID id){
-        return repository.findById(id);
+        return repository.findById(id); //todo: а искать по айдишнику или по findByUserId?
+    }
+
+
+    public Mono<Individual> deleteById(UUID id){
+        return repository.findById(id)  //todo: а искать по айдишнику или по findByUserId?
+                .flatMap(individual -> repository.deleteById(id)
+                        .thenReturn(individual));
     }
 
 
