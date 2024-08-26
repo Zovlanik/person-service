@@ -1,5 +1,6 @@
 package com.example.person_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -33,6 +34,7 @@ public class Individual implements Persistable<UUID> {
     private String status;
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

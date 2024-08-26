@@ -12,12 +12,12 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/person-service/address")
+@RequestMapping("/api/v1/address")
 public class AddressController {
 
     private final AddressService addressService;
 
-    @PostMapping("")
+    @PostMapping
     public Mono<Address> createAddress (AddressDto addressDto){
         return addressService.createAddress(addressDto);
     }

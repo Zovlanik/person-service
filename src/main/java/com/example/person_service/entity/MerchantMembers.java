@@ -1,5 +1,6 @@
 package com.example.person_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
@@ -22,6 +23,7 @@ public class MerchantMembers implements Persistable<java.util.UUID> {
 
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

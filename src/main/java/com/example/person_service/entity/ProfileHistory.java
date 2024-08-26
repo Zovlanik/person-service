@@ -1,5 +1,6 @@
 package com.example.person_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
@@ -23,6 +24,7 @@ public class ProfileHistory implements Persistable<UUID> {
 
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

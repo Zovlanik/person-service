@@ -4,10 +4,7 @@ import com.example.common.IndividualDto;
 import com.example.person_service.entity.Individual;
 import com.example.person_service.service.IndividualsService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.UUID;
@@ -15,31 +12,31 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/person-service/individual")
+@RequestMapping("/api/v1/individual")
 public class IndividualsController {
 
     private final IndividualsService individualsService;
 
-    @PostMapping("/create")
+    @PostMapping
     public Mono<Individual> createIndividual (@RequestBody IndividualDto individualDto){
         return individualsService.createIndividual(individualDto);
     }
 
-    @PostMapping("/update")
+    @PutMapping
     public Mono<Individual> updateIndividual (@RequestBody IndividualDto individualDto){
         return individualsService.updateIndividual(individualDto);
     }
 
-
-    @PostMapping("/getById")
-    public Mono<Individual> getIndividualById (@RequestBody UUID id){
-        return individualsService.findById(id);
+    @GetMapping("/{id}")
+    public Mono<Individual> getIndividualById (@PathVariable String id){
+        //todo: добавить валидацию на id, что это uuid
+        return individualsService.findById(UUID.fromString(id));
     }
 
-
-    @PostMapping("/deleteById")
-    public Mono<Individual> deleteIndividualById (@RequestBody UUID id){
-        return individualsService.deleteById(id);
+    @DeleteMapping("/{id}")
+    public Mono<Individual> deleteIndividualById (@PathVariable String id){
+        //todo: добавить валидацию на id, что это uuid
+        return individualsService.deleteById(UUID.fromString(id));
     }
 
 }

@@ -82,12 +82,12 @@ public class IndividualsService {
     }
 
     public Mono<Individual> findById(UUID id){
-        return repository.findById(id); //todo: а искать по айдишнику или по findByUserId?
+        return repository.findById(id); //todo: а искать по айдишнику или по findByUserId? = по айдишнику
     }
 
 
     public Mono<Individual> deleteById(UUID id){
-        return repository.findById(id)  //todo: а искать по айдишнику или по findByUserId?
+        return repository.findById(id)  //todo: а искать по айдишнику или по findByUserId? = по айдишнику
                 .flatMap(individual -> repository.deleteById(id)
                         .thenReturn(individual));
     }
@@ -164,7 +164,7 @@ public class IndividualsService {
 
         ValueChange change = diff.getChangesByType(ValueChange.class).get(0);
 
-        //todo: уточнить у Жени как правильно вообще вызывать Mono<void> и встраивать в последовательность выполнения.
+        //todo: уточнить у Жени как правильно вообще вызывать Mono<void> и встраивать в последовательность выполнения. = воспринимать его как обычный Mono.
 
 
         return repository.save(mapper.map(individualDto))

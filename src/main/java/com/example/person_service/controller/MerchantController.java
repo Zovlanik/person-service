@@ -5,6 +5,7 @@ import com.example.person_service.entity.Merchant;
 import com.example.person_service.service.MerchantService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Mono;
@@ -12,13 +13,13 @@ import reactor.core.publisher.Mono;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/api/v1/person-service/merchant")
+@RequestMapping("/api/v1/merchant")
 public class MerchantController {
 
     private final MerchantService merchantService;
 
-    @PostMapping("")
-    public Mono<Merchant> createMerchant (MerchantDto merchantDto){
+    @PostMapping
+    public Mono<Merchant> createMerchant (@RequestBody MerchantDto merchantDto){
         return merchantService.createMerchant(merchantDto);
     }
 }

@@ -1,5 +1,6 @@
 package com.example.person_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
@@ -10,6 +11,7 @@ import java.util.UUID;
 
 @Data
 @Table("merchants")
+//это компания, она не будет заходить в систему.
 public class Merchant implements Persistable<UUID> {
 
     @Id
@@ -27,6 +29,7 @@ public class Merchant implements Persistable<UUID> {
     private boolean filled;
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }

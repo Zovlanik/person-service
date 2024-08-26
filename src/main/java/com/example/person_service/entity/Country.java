@@ -1,5 +1,6 @@
 package com.example.person_service.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.domain.Persistable;
@@ -20,6 +21,7 @@ public class Country implements Persistable<Integer> {
     private String status;
 
     @Override
+    @JsonIgnore
     public boolean isNew() {
         return id == null;
     }
