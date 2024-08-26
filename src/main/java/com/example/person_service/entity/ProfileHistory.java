@@ -20,7 +20,7 @@ public class ProfileHistory implements Persistable<UUID> {
     private UUID profileId; //person.users.id
     private String reason;
     private String comment;
-    private String changedValues; //в БД - jsonB //todo: заносить сюда только дельту изменений.
+    private String changedValues;
 
 
     @Override

@@ -16,7 +16,7 @@ public class Country implements Persistable<Integer> {
     private LocalDateTime created;
     private LocalDateTime updated;
     private String name;
-    private String alpha2;
+    private String alpha2;  //alpha2 и alpha3 - уникальные идентификаторы
     private String alpha3;
     private String status;
 

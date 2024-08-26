@@ -47,13 +47,9 @@ public class IndividualsService {
                         .thenReturn(savedIndividual));
     }
 
-    public Mono<Individual> updateIndividual(IndividualDto individualDto){
-        // получить индивидуала по айдишнику
-        // сравнить текущую дто и новую
-        // измененные поля пишу сюда в историю
-        // использовать JsonNode!
+    public Mono<Individual> updateIndividual(UUID id, IndividualDto individualDto){
 
-        return repository.findByUserId(individualDto.getUserId())
+        return repository.findById(id)
                 .flatMap(individualFromRepo -> {
                     Individual newIndividual = mapper.map(individualDto);
                     newIndividual.setId(individualFromRepo.getId());
@@ -82,12 +78,12 @@ public class IndividualsService {
     }
 
     public Mono<Individual> findById(UUID id){
-        return repository.findById(id); //todo: а искать по айдишнику или по findByUserId? = по айдишнику
+        return repository.findById(id);
     }
 
 
     public Mono<Individual> deleteById(UUID id){
-        return repository.findById(id)  //todo: а искать по айдишнику или по findByUserId? = по айдишнику
+        return repository.findById(id)
                 .flatMap(individual -> repository.deleteById(id)
                         .thenReturn(individual));
     }
@@ -163,8 +159,6 @@ public class IndividualsService {
                 .build();
 
         ValueChange change = diff.getChangesByType(ValueChange.class).get(0);
-
-        //todo: уточнить у Жени как правильно вообще вызывать Mono<void> и встраивать в последовательность выполнения. = воспринимать его как обычный Mono.
 
 
         return repository.save(mapper.map(individualDto))

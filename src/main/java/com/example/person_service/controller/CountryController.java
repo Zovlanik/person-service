@@ -21,12 +21,17 @@ public class CountryController {
     }
 
     @GetMapping("/{id}")
-    public Mono<Country> getCountry(@RequestBody Integer id) {
+    public Mono<Country> getCountry(@PathVariable Integer id) {
         return countryService.getCountry(id);
     }
 
-    @PutMapping
-    public Mono<Country> updateCountry(@RequestBody CountryDto countryDto) {
-        return countryService.updateCountry(countryDto);
+    @PutMapping("/{id}")
+    public Mono<Country> updateCountry(@PathVariable Integer id,@RequestBody CountryDto countryDto) {
+        return countryService.updateCountry(id, countryDto);
+    }
+
+    @DeleteMapping("/{id}")
+    public Mono<Void> deleteCountry(@PathVariable Integer id) {
+        return countryService.deleteCountry(id);
     }
 }

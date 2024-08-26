@@ -24,14 +24,16 @@ public class CountryService {
         return repository.findById(id);
     }
 
-    public Mono<Country> updateCountry(CountryDto countryDto){ // todo: правильно ли в DTO добавлять айдишник, чтобы иметь возможность в будущем поиска по айдишнику? = alpha2 и alpha3 - уникальные идентификаторы
-        return repository.findByName(countryDto.getName())
+    public Mono<Country> updateCountry(Integer id, CountryDto countryDto){
+        return repository.findById(id)
                 .flatMap(country -> {
                     Country newCountry = mapper.map(countryDto);
-                    newCountry.setId(country.getId());
+                    newCountry.setId(id);
                     return repository.save(newCountry);
                 });
     }
 
-
+    public Mono<Void> deleteCountry(Integer id){
+        return repository.deleteById(id);
+    }
 }
