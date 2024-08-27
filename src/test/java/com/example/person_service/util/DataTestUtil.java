@@ -1,5 +1,6 @@
 package com.example.person_service.util;
 
+import com.example.common.AddressDto;
 import com.example.common.IndividualDto;
 import com.example.person_service.entity.Individual;
 
@@ -46,5 +47,17 @@ public class DataTestUtil {
         changedIndividual.setArchivedAt(now);
         changedIndividual.setStatus("Some status");
         return changedIndividual;
+    }
+
+    public static AddressDto getAddressDto(LocalDateTime now){
+        AddressDto addressDto = new AddressDto();
+        addressDto.setCreated(now);
+        addressDto.setUpdated(now);
+        addressDto.setCountryId(1);
+        addressDto.setAddress("Some String Address");
+        addressDto.setZipCode("123456");
+        addressDto.setCity("Some City");
+        addressDto.setState("Some state");
+        return addressDto;
     }
 }

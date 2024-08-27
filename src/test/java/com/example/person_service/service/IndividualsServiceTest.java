@@ -66,7 +66,7 @@ class IndividualsServiceTest {
         Mockito.when(repository.save(Mockito.any(Individual.class))).thenReturn(Mono.just(changedIndividual));
         Mockito.when(historyService.createHistory(Mockito.any(ProfileHistory.class))).thenReturn(Mono.just(profileHistorySaved));
 
-        StepVerifier.create(service.updateIndividual(newIndividualDto))
+        StepVerifier.create(service.updateIndividual(individualFromRepo.getId(),newIndividualDto))
                 .expectNext(changedIndividual)
                 .verifyComplete();
     }
