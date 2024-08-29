@@ -53,6 +53,7 @@ public class DataTestUtil {
         AddressDto addressDto = new AddressDto();
         addressDto.setCreated(now);
         addressDto.setUpdated(now);
+        addressDto.setArchived(now);
         addressDto.setCountryId(1);
         addressDto.setAddress("Some String Address");
         addressDto.setZipCode("123456");

@@ -1,7 +1,6 @@
 package com.example.person_service.controller;
 
 import com.example.common.AddressDto;
-import com.example.person_service.entity.Country;
 import com.example.person_service.repository.AddressRepository;
 import com.example.person_service.repository.CountryRepository;
 import com.example.person_service.testcontainersettings.PostgresTestContainerConfig;
@@ -14,18 +13,13 @@ import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWeb
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.web.reactive.server.WebTestClient;
-import org.testcontainers.shaded.org.checkerframework.checker.units.qual.A;
+import reactor.core.publisher.Mono;
 
 import java.time.LocalDateTime;
-import java.util.UUID;
 
 import static com.example.person_service.util.DataTestUtil.getAddressDto;
-import static org.junit.jupiter.api.Assertions.*;
 
-@ActiveProfiles("test")
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient
 @Import(PostgresTestContainerConfig.class)
@@ -57,7 +51,7 @@ class AddressControllerTest {
         webTestClient.post()
                 .uri("/api/v1/address")
                 .accept(MediaType.APPLICATION_JSON)
-                .body(addressDto, AddressDto.class)
+                .body(Mono.just(addressDto), AddressDto.class)
                 .exchange()
                 .expectStatus().isOk()
                 .expectBody()

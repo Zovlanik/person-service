@@ -1,6 +1,6 @@
 CREATE SCHEMA IF NOT EXISTS person;
 
-CREATE TABLE person.countries
+CREATE TABLE countries
 (
     id      SERIAL PRIMARY KEY,
     created TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -13,12 +13,12 @@ CREATE TABLE person.countries
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
-CREATE TABLE person.addresses
+CREATE TABLE addresses
 (
     id         UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     created    TIMESTAMP NOT NULL,
     updated    TIMESTAMP NOT NULL,
-    country_id INTEGER REFERENCES person.countries (id),
+    country_id INTEGER REFERENCES countries (id),
     address    VARCHAR(128),
     zip_code   VARCHAR(32),
     archived   TIMESTAMP NOT NULL,
@@ -26,7 +26,7 @@ CREATE TABLE person.addresses
     state      VARCHAR(32)
 );
 
-CREATE TABLE person.users
+CREATE TABLE users
 (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     secret_key  VARCHAR(32),
@@ -38,13 +38,13 @@ CREATE TABLE person.users
     archived_at TIMESTAMP NOT NULL,
     status      VARCHAR(64),
     filled      BOOLEAN,
-    address_id  UUID REFERENCES person.addresses (id)
+    address_id  UUID REFERENCES addresses (id)
 );
 
-CREATE TABLE person.merchants
+CREATE TABLE merchants
 (
     id           UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    creator_id   UUID REFERENCES person.users (id),
+    creator_id   UUID REFERENCES users (id),
     created      TIMESTAMP NOT NULL,
     updated      TIMESTAMP NOT NULL,
     company_name VARCHAR(32),
@@ -57,21 +57,21 @@ CREATE TABLE person.merchants
     filled       BOOLEAN
 );
 
-CREATE TABLE person.merchant_members
+CREATE TABLE merchant_members
 (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id     UUID UNIQUE REFERENCES person.users (id),
+    user_id     UUID UNIQUE REFERENCES users (id),
     created     TIMESTAMP NOT NULL,
     updated     TIMESTAMP NOT NULL,
-    merchant_id UUID REFERENCES person.merchants (id),
+    merchant_id UUID REFERENCES merchants (id),
     member_role VARCHAR(32),
     status      VARCHAR(32)
 );
 
-CREATE TABLE person.individuals
+CREATE TABLE individuals
 (
     id              UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-    user_id         UUID UNIQUE REFERENCES person.users (id),
+    user_id         UUID UNIQUE REFERENCES users (id),
     created         TIMESTAMP NOT NULL,
     updated         TIMESTAMP NOT NULL,
     passport_number VARCHAR(32),
@@ -82,34 +82,34 @@ CREATE TABLE person.individuals
     status          VARCHAR(32)
 );
 
-CREATE TABLE person.verification_statuses
+CREATE TABLE verification_statuses
 (
     id                  UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     created             TIMESTAMP NOT NULL,
     updated             TIMESTAMP NOT NULL,
-    profile_id          UUID REFERENCES person.users (id),
+    profile_id          UUID REFERENCES users (id),
     profile_type        VARCHAR(32),
     details             VARCHAR(255),
     verification_status VARCHAR(32)
 );
 
-CREATE TABLE person.profile_history
+CREATE TABLE profile_history
 (
     id             UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     created        TIMESTAMP NOT NULL,
-    profile_id     UUID REFERENCES person.users (id),
+    profile_id     UUID REFERENCES users (id),
     profile_type   VARCHAR(32),
     reason         VARCHAR(255),
     comment        VARCHAR(255),
     changed_values VARCHAR(1024)
 );
 
-CREATE TABLE person.merchant_members_invitations
+CREATE TABLE merchant_members_invitations
 (
     id          UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     created     TIMESTAMP NOT NULL,
     expires     TIMESTAMP NOT NULL,
-    merchant_id UUID REFERENCES person.merchants (id),
+    merchant_id UUID REFERENCES merchants (id),
     first_name  VARCHAR(32),
     last_name   VARCHAR(32),
     email       VARCHAR(32),
