@@ -1,8 +1,10 @@
 package com.example.person_service.util;
 
 import com.example.common.AddressDto;
+import com.example.common.CountryDto;
 import com.example.common.IndividualDto;
 import com.example.person_service.entity.Individual;
+
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -60,5 +62,29 @@ public class DataTestUtil {
         addressDto.setCity("Some City");
         addressDto.setState("Some state");
         return addressDto;
+    }
+
+    public static CountryDto getCountryDto(LocalDateTime now){
+        CountryDto countryDto = new CountryDto();
+        countryDto.setCreated(now);
+        countryDto.setName("CountryName");
+        countryDto.setAlpha2("CN");
+        countryDto.setAlpha3("CNN");
+        countryDto.setStatus("ACTIVE");
+
+        return countryDto;
+    }
+
+    public static IndividualDto getIndividualDto_withEmptyUserId(LocalDateTime now) {
+        IndividualDto newIndividualDto = new IndividualDto();
+        newIndividualDto.setUserId(null);
+        newIndividualDto.setPhoneNumber("+7(999)456-78-90");
+        newIndividualDto.setEmail("new email");
+        newIndividualDto.setCreated(now);
+        newIndividualDto.setUpdated(now);
+        newIndividualDto.setVerifiedAt(now);
+        newIndividualDto.setArchivedAt(now);
+        newIndividualDto.setPassportNumber("12 34 56789");
+        return newIndividualDto;
     }
 }
