@@ -16,6 +16,7 @@ spring:
       validation-query: SELECT 1
   flyway:
     #    url: ${SPRING_FLYWAY_URL}
-    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres&currentSchema=person
+    url: jdbc:postgresql://localhost:5432/postgres?user=postgres&password=postgres
+    enabled: true
     locations: classpath:db/migration
     baseline-on-migrate: true

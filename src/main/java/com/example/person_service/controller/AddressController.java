@@ -21,7 +21,7 @@ public class AddressController {
     private final AddressService addressService;
 
     @PostMapping
-    public Mono<Address> createAddress(AddressDto addressDto) {
+    public Mono<Address> createAddress(@RequestBody AddressDto addressDto) {
         return addressService.createAddress(addressDto);
     }
 
