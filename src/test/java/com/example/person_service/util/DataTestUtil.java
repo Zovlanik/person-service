@@ -3,6 +3,8 @@ package com.example.person_service.util;
 import com.example.common.AddressDto;
 import com.example.common.CountryDto;
 import com.example.common.IndividualDto;
+import com.example.person_service.entity.Address;
+import com.example.person_service.entity.Country;
 import com.example.person_service.entity.Individual;
 
 
@@ -57,9 +59,9 @@ public class DataTestUtil {
         addressDto.setUpdated(now);
         addressDto.setArchived(now);
         addressDto.setCountryId(1);
-        addressDto.setAddress("Some String Address");
+        addressDto.setAddress("Some DTO Address");
         addressDto.setZipCode("123456");
-        addressDto.setCity("Some City");
+        addressDto.setCity("Some DTO City");
         addressDto.setState("Some state");
         return addressDto;
     }
@@ -86,5 +88,30 @@ public class DataTestUtil {
         newIndividualDto.setArchivedAt(now);
         newIndividualDto.setPassportNumber("12 34 56789");
         return newIndividualDto;
+    }
+
+    public static Address getAddress(LocalDateTime now){
+        Address address = new Address();
+        address.setId(UUID.fromString("bb9451be-65c3-49d9-951d-5e6cab79c57f"));
+        address.setCreated(now);
+        address.setUpdated(now);
+        address.setArchived(now);
+        address.setCountryId(1);
+        address.setAddress("Some String Address");
+        address.setZipCode("123456");
+        address.setCity("Some City");
+        address.setState("Some state");
+        return address;
+    }
+    public static Country getCountry(LocalDateTime now){
+        Country country = new Country();
+        country.setId(1);
+        country.setCreated(now);
+        country.setUpdated(now);
+        country.setName("Country Name");
+        country.setAlpha2("CN");
+        country.setAlpha3("CNN");
+        country.setStatus("ACTIVE");
+        return country;
     }
 }

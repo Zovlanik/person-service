@@ -70,4 +70,33 @@ class IndividualsServiceTest {
                 .expectNext(changedIndividual)
                 .verifyComplete();
     }
+
+    @Test
+    void findById() {
+        Individual individualFromRepo = getIndividual(LocalDateTime.now());
+        Mockito.when(repository.findById(Mockito.any(UUID.class))).thenReturn(Mono.just(individualFromRepo));
+
+        Mono<Individual> byId = service.findById(individualFromRepo.getId());
+        StepVerifier.create(byId)
+                .assertNext(individual -> {
+                    individual.getUserId().equals(individualFromRepo.getUserId());
+                })
+                .verifyComplete();
+    }
+
+
+    @Test
+    void deleteById() {
+        Individual individualFromRepo = getIndividual(LocalDateTime.now());
+        Mockito.when(repository.findById(Mockito.any(UUID.class))).thenReturn(Mono.just(individualFromRepo));
+        Mockito.when(repository.deleteById(Mockito.any(UUID.class))).thenReturn(Mono.empty());
+
+        Mono<Individual> individualMono = service.deleteById(individualFromRepo.getId());
+
+        StepVerifier.create(individualMono)
+                .expectNext(individualFromRepo)
+                .verifyComplete();
+    }
+
+
 }
